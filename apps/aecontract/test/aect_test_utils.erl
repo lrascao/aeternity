@@ -116,7 +116,8 @@ latest_sophia_vm_version() ->
         ?MINERVA_PROTOCOL_VSN -> ?VM_AEVM_SOPHIA_2;
         ?FORTUNA_PROTOCOL_VSN -> ?VM_AEVM_SOPHIA_3;
         ?LIMA_PROTOCOL_VSN    -> ?VM_AEVM_SOPHIA_4;
-        ?IRIS_PROTOCOL_VSN    -> ?VM_FATE_SOPHIA_2
+        ?IRIS_PROTOCOL_VSN    -> ?VM_FATE_SOPHIA_2;
+        ?CERES_PROTOCOL_VSN   -> ?VM_FATE_SOPHIA_2
     end.
 
 latest_sophia_abi_version() ->
@@ -125,7 +126,8 @@ latest_sophia_abi_version() ->
         ?MINERVA_PROTOCOL_VSN -> ?ABI_AEVM_SOPHIA_1;
         ?FORTUNA_PROTOCOL_VSN -> ?ABI_AEVM_SOPHIA_1;
         ?LIMA_PROTOCOL_VSN    -> ?ABI_AEVM_SOPHIA_1;
-        ?IRIS_PROTOCOL_VSN    -> ?ABI_FATE_SOPHIA_1
+        ?IRIS_PROTOCOL_VSN    -> ?ABI_FATE_SOPHIA_1;
+        ?CERES_PROTOCOL_VSN   -> ?ABI_FATE_SOPHIA_1
     end.
 
 latest_sophia_version() ->
@@ -134,7 +136,8 @@ latest_sophia_version() ->
         ?MINERVA_PROTOCOL_VSN -> ?SOPHIA_MINERVA;
         ?FORTUNA_PROTOCOL_VSN -> ?SOPHIA_FORTUNA;
         ?LIMA_PROTOCOL_VSN    -> ?SOPHIA_LIMA_AEVM;
-        ?IRIS_PROTOCOL_VSN    -> ?SOPHIA_IRIS_FATE
+        ?IRIS_PROTOCOL_VSN    -> ?SOPHIA_IRIS_FATE;
+        ?CERES_PROTOCOL_VSN    -> ?SOPHIA_IRIS_FATE
     end.
 
 latest_sophia_contract_version() ->
@@ -143,7 +146,8 @@ latest_sophia_contract_version() ->
         ?MINERVA_PROTOCOL_VSN -> ?SOPHIA_CONTRACT_VSN_2;
         ?FORTUNA_PROTOCOL_VSN -> ?SOPHIA_CONTRACT_VSN_2;
         ?LIMA_PROTOCOL_VSN    -> ?SOPHIA_CONTRACT_VSN_3;
-        ?IRIS_PROTOCOL_VSN    -> ?SOPHIA_CONTRACT_VSN_3
+        ?IRIS_PROTOCOL_VSN    -> ?SOPHIA_CONTRACT_VSN_3;
+        ?CERES_PROTOCOL_VSN    -> ?SOPHIA_CONTRACT_VSN_3
     end.
 
 latest_protocol_version() ->
@@ -690,6 +694,8 @@ init_per_group(aevm, Cfg, Cont) ->
             Cont([{sophia_version, ?SOPHIA_LIMA_AEVM}, {vm_version, ?VM_AEVM_SOPHIA_4},
                   {abi_version, ?ABI_AEVM_SOPHIA_1}, {protocol, lima} | Cfg]);
         ?IRIS_PROTOCOL_VSN ->
+            {skip, aevm_deprecated};
+        ?CERES_PROTOCOL_VSN ->
             {skip, aevm_deprecated}
     end;
 init_per_group(fate, Cfg, Cont) ->
@@ -700,6 +706,10 @@ init_per_group(fate, Cfg, Cont) ->
                   {abi_version, ?ABI_FATE_SOPHIA_1}, {protocol, lima} | Cfg]);
         ?IRIS_PROTOCOL_VSN ->
             ct:pal("Running tests under Iris protocol in FATE"),
+            Cont([{sophia_version, ?SOPHIA_IRIS_FATE}, {vm_version, ?VM_FATE_SOPHIA_2},
+                  {abi_version, ?ABI_FATE_SOPHIA_1}, {protocol, iris} | Cfg]);
+        ?CERES_PROTOCOL_VSN ->
+            ct:pal("Running tests under Ceres protocol in FATE"),
             Cont([{sophia_version, ?SOPHIA_IRIS_FATE}, {vm_version, ?VM_FATE_SOPHIA_2},
                   {abi_version, ?ABI_FATE_SOPHIA_1}, {protocol, iris} | Cfg]);
         _ ->
@@ -715,7 +725,8 @@ setup_testcase(Config) ->
                           minerva -> ?MINERVA_PROTOCOL_VSN;
                           fortuna -> ?FORTUNA_PROTOCOL_VSN;
                           lima    -> ?LIMA_PROTOCOL_VSN;
-                          iris    -> ?IRIS_PROTOCOL_VSN
+                          iris    -> ?IRIS_PROTOCOL_VSN;
+                          ceres   -> ?CERES_PROTOCOL_VSN
                       end,
     AciDisabled = case os:getenv("SOPHIA_NO_ACI") of
                       false ->
@@ -753,9 +764,9 @@ backend() ->
         ?ABI_FATE_SOPHIA_1 -> fate
     end.
 
-backend(?SOPHIA_LIMA_FATE) -> fate;
-backend(?SOPHIA_IRIS_FATE) -> fate;
-backend(_                ) -> aevm.
+backend(?SOPHIA_LIMA_FATE)  -> fate;
+backend(?SOPHIA_IRIS_FATE)  -> fate;
+backend(_                )  -> aevm.
 
 aci_disabled() ->
     case get('$aci_disabled') of
