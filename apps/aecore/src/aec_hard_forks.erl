@@ -73,13 +73,13 @@ ensure_env() ->
 protocol_effective_at_height(Height) ->
     protocol_effective_at_height(Height, protocols()).
 
--spec protocol_vsn_name(protocol_vsn()) -> atom().
+-spec protocol_vsn_name(protocol_vsn())  -> atom().
 protocol_vsn_name(?ROMA_PROTOCOL_VSN)    -> roma;
 protocol_vsn_name(?MINERVA_PROTOCOL_VSN) -> minerva;
 protocol_vsn_name(?FORTUNA_PROTOCOL_VSN) -> fortuna;
 protocol_vsn_name(?LIMA_PROTOCOL_VSN)    -> lima;
 protocol_vsn_name(?IRIS_PROTOCOL_VSN)    -> iris;
-protocol_vsn_name(?CERES_PROTOCOL_VSN)    -> ceres.
+protocol_vsn_name(?CERES_PROTOCOL_VSN)   -> ceres.
 
 -spec protocol_vsn(atom()) -> protocol_vsn().
 protocol_vsn(roma)    -> ?ROMA_PROTOCOL_VSN;

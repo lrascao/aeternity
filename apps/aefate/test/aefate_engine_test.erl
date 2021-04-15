@@ -192,9 +192,10 @@ map() ->
                 [{1, true}, {2, false}, {42, true}]}
             % Test really big map to list
             , case aec_governance:get_network_id() of
-                <<"local_iris_testnet">> ->
-                    {<<"map_to_list">>, [BigMap], BigList};
-                _ -> {<<"map_to_list">>, [BigMap], maps:to_list(BigMap)}
+                <<"local_lima_testnet">> ->
+                    {<<"map_to_list">>, [BigMap], maps:to_list(BigMap)};
+                _ ->
+                    {<<"map_to_list">>, [BigMap], BigList}
               end
             ]
     ].

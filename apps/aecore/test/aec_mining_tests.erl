@@ -44,7 +44,7 @@ mine_block_test_() ->
                              ?FORTUNA_PROTOCOL_VSN -> 14605323916794258785;
                              ?LIMA_PROTOCOL_VSN    -> 2331533446344578375;
                              ?IRIS_PROTOCOL_VSN    -> 9446698485151902999;
-                             ?CERES_PROTOCOL_VSN    -> 9099357440328778145 
+                             ?CERES_PROTOCOL_VSN   -> 9099357440328778145 
                          end,
                  Info =
                     case aec_hard_forks:protocol_effective_at_height(Height + 1) of
