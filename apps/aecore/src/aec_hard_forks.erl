@@ -99,7 +99,7 @@ protocols_from_network_id(<<"ae_mainnet">>) ->
      , ?MINERVA_PROTOCOL_VSN  => 47800
      , ?FORTUNA_PROTOCOL_VSN => 90800
      , ?LIMA_PROTOCOL_VSN => 161150
-%%%  , ?IRIS_PROTOCOL_VSN =>  Not yet decided
+     , ?IRIS_PROTOCOL_VSN =>  434300
 %%%  , ?CERES_PROTOCOL_VSN =>  Not yet decided
     };
 protocols_from_network_id(<<"ae_uat">>) ->

@@ -1175,7 +1175,7 @@ jobs:
     executor: buildpack
     environment:
       - AE__CHAIN__PERSIST: false
-      - AE__FORK_MANAGEMENT__NETWORK_ID: local_iris_testnet
+      - AE__FORK_MANAGEMENT__NETWORK_ID: local_ceres_testnet
     steps:
       - fixed_checkout
       - *setup_remote_docker
@@ -1345,7 +1345,7 @@ jobs:
       - image: circleci/buildpack-deps:bionic
     environment:
       - AE__CHAIN__PERSIST: false
-      - AE__FORK_MANAGEMENT__NETWORK_ID: local_iris_testnet
+      - AE__FORK_MANAGEMENT__NETWORK_ID: local_ceres_testnet
       - PACKAGES_DIR: *packages_workspace
     steps:
       - fixed_checkout
